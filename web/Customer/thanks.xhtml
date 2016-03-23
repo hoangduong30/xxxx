@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../layout/newTemplate.xhtml">
+                
+            <ui:define name="title">
+               Verify Page
+            </ui:define>
+            
+            <ui:define name="content">
+                <f:metadata>
+                    <f:viewParam name="customerEmail" value="#{customerRequestBean.customer.customerEmail}"/>
+                    <f:viewAction action="#{customerRequestBean.doSetVerify()}"/>
+                </f:metadata>
+               <div class="validationDiv">
+                    <h:outputText value="#{customerRequestBean.regMsg}" style="color: #DA7B77;font-weight: bolder;font-size: 140%;"/>
+              </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

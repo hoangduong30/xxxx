@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+       
+    </h:head>
+    <h:body>
+        <ui:composition>
+       <div class="container">
+                <h:form>
+          <div class="brand">
+              <h1 class="brand_name"><h:commandLink action="index.xhtml">Hoàng Tân</h:commandLink></h1>
+            <p class="brand_slogan">Bank</p>
+          </div>
+                    <div style="float: right">
+                        <h:panelGroup rendered="#{customerBean.login==0}">
+                        <h:commandLink action="/Customer/loginPage.xhtml">Đăng Nhập</h:commandLink>/<h:commandLink action="/Customer/registerPage.xhtml">Đăng kí</h:commandLink><br></br>
+                     <h:commandLink action="index.xhtml">Quên mật khẩu</h:commandLink>
+                     </h:panelGroup>
+                     </div>
+                     <div style="float: right">
+                        <h:panelGroup rendered="#{customerBean.login==1}">
+                            Chào <h:commandLink action="index.xhtml">#{customerBean.customer.customerName}</h:commandLink>,<h:commandLink action="#{customerBean.checkLogout()}">Đăng Xuất</h:commandLink><br></br>
+                     </h:panelGroup>
+                     </div>
+                </h:form>
+          
+        </div>
+        <div id="stuck_container" class="stuck_container">
+          <div class="container">
+            <nav class="nav">
+                <h:form>
+              <ul data-type="navbar" class="sf-menu">
+                <li class="active"><h:commandLink action="index.xhtml">Trang chủ</h:commandLink>
+                </li>
+                <li><h:commandLink action="index.xhtml">Dich vụ</h:commandLink>
+                </li>
+                <li><h:commandLink action="index.xhtml">Ngân hàng điện tử</h:commandLink>
+                </li>
+                <li><h:commandLink action="index.xhtml">Tuyển dụng</h:commandLink>
+                </li>
+                <li><h:commandLink action="index.xhtml">Giới thiệu</h:commandLink>
+                </li>
+              </ul>
+                    </h:form>
+            </nav>
+          </div>
+        </div>
+            </ui:composition>
+    </h:body>
+</html>
+

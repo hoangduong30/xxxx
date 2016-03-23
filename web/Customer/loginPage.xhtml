@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:botDetect="botDetectFacelets">
+
+    <body>
+        <style>
+            input[type=text],input[type=password]
+            {
+     width: 300px;margin-left: 0.5em;margin-bottom: 0.5em; float: left           
+}
+
+        </style>
+        <ui:composition template="./../layout/newTemplate.xhtml">
+        <ui:define name="title">
+                Login Form
+            </ui:define>
+            <ui:define name="content">
+                <div style="margin-left: 500px;">
+                    <h:messages style="color: #DA7B77"/>
+                <h:form>
+                    <h:outputLabel value="Tên Đăng Nhập :" />
+                    <h:inputText value="#{customerBean.customer.userName}" required="true"/><br></br>
+                <h:outputLabel value="Mật Khẩu :"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h:inputSecret value="#{customerBean.customer.userPass}"  required="true"/><br></br>
+                <h:panelGroup>
+              <h:outputLabel for="captchaCodeTextBox" 
+                  value="Retype the characters from the picture:"/>
+              <botDetect:jsfCaptcha id="exampleCaptcha" 
+                 binding="#{customerBean.captcha}" imageWidth="200"
+                  codeLength="4" codeStyle="ALPHA"/>
+              <div class="validationDiv">
+                <h:inputText id="captchaCodeTextBox" 
+                             value="#{customerBean.captchaCode}" style="padding-left: 100px"/>
+              </div>
+            </h:panelGroup>
+                <div class="validationDiv">
+                    <h:outputText value="#{customerBean.errorMsg}" style="color: #DA7B77;font-weight: bolder;font-size: 140%;"/>
+              </div>
+                <h:commandButton action="#{customerBean.submit()}" value="Đăng nhập" >
+                    </h:commandButton>
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

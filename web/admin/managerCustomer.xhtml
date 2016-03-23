@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../layout/templateForAdmin.xhtml">
+
+            <ui:define name="title">
+                title
+            </ui:define>
+
+            <ui:define name="content">
+                <div style="height: 700px;margin-bottom: 20px;">
+                    <div style="">
+        <aside style="margin-left: 30px;width: 350px;float:left;height: 700px;;background-color: #ffff99;padding-top: 150px;">
+            <div class="catalogy">
+                <nav id="nav_menu">
+                    <h:form>
+                    <ul>
+                        <li style="margin-bottom: 30px;background-color: #232F3E; color: #ffffff;padding-left: 40px; height: 50px;padding-top: 15px;"><h:commandLink action="index.xhtml"><span style=" color: white;font-size: 110%">Hiện tất cả kho sách</span></h:commandLink>
+                        </li>
+                        <li style="margin-bottom: 30px;background-color: #232F3E;padding-left: 40px;height: 50px;padding-top: 15px; "><h:commandLink action="index.xhtml"><span style=" color: white;font-size: 110%">Tìm Sách theo mục</span></h:commandLink>
+                        </li>
+                        <li style="margin-bottom: 30px;background-color: #232F3E; color: #ffffff;padding-left: 40px;height: 50px;padding-top: 15px; "><h:commandLink action="index.xhtml"><span style=" color: white;font-size: 110%">Thêm sách mới</span></h:commandLink>
+                        </li>
+                        <li style="margin-bottom: 30px;background-color: #232F3E; color: #ffffff;padding-left: 40px; height: 50px;padding-top: 15px; "><h:commandLink action="index.xhtml"><span style=" color: white;font-size: 110%">Quay về</span></h:commandLink>
+                        </li>
+                    </ul>
+                        </h:form>
+                </nav>
+            </div>
+        </aside>
+                        <section style="float:left;padding-left: 40px;">
+                         <div id="producttable">
+        <h:form>
+            <h:dataTable id="booklist" value="#{adminBean.doGetAllCustomer()}" var="c" border="1" >
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Mã khách hàng" />
+                    </f:facet>
+                    <h:outputText value="#{c.customerID}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tên Khách Hàng"/>
+                    </f:facet>
+                    <h:inputText value="#{c.customerName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Số Điện Thoại"/>
+                    </f:facet>
+                    <h:inputText value="#{c.customerPhone}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ngày Đăng Ký"/>
+                    </f:facet>
+                    <h:inputText value="#{c.dateRegister}" style="width: 30px;"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:inputText value="tình trạng kích hoạt"/>
+                    </f:facet>
+                    <h:commandButton value="Deactive" action="#{adminBean.}" rendered="#{c.isVerify==0}">
+                        
+                    </h:commandButton>
+                     <h:commandButton value="Active" action="#{productManagedBean.removeProductFromCart()}" rendered="#{c.isVerify==1}">
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="trạng thái"/>
+                    </f:facet>
+                    <h:commandButton value="Xóa" action="#{productManagedBean.removeProductFromCart()}">
+                        <f:param name="productID" value="#{item.productID.productID}"/>
+                        <f:ajax execute="@this" render="@form"/>
+                    </h:commandButton>
+
+                </h:column>
+            </h:dataTable>
+        </h:form>
+            </div>
+                        </section>
+                        </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
