@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../layout/newTemplate.xhtml">
+
+            <ui:define name="title">
+            Chuyển tiền nội mạng
+            </ui:define>
+
+            <ui:define name="content">
+                <div>
+                    <h:form >
+                        <div>
+                            <div style="float:left;width: 50px;border-radius: 0px 0px 80px 80px"></div>
+                            <div style="float:left;">
+                      <p style="color: #C04040;">Chuyển khoản</p>
+                      </div>
+                          </div>
+                    </h:form>
+                <h:form >
+                    <h:panelGrid columns="2"  border="1" title="tài khoản">
+                <h:outputLabel value="Tài khoản trích nợ: " style="width: 100px;margin-bottom: 0.5em;"/>
+                <h:inputText value="#{customerBean.account.accountID}" style="float: right"/>
+                     <h:outputLabel value="Số dư tài khoản trích nợ hiện tại " style="width: 100px;margin-bottom: 0.5em;"/>
+                     <h:inputText value="#{customerBean.account.acountAmount}" style="float: right"/>
+                    <h:outputLabel value="Số tiền chuyển khoản: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{customerBean.amount}" style="float: right"/>
+                    <h:outputLabel value="Tài khoản ghi có " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{customerBean.account1.accountID}" style="float: right">
+                    </h:inputText>
+                     <h:outputLabel value="Nôi dung thanh toán"/>
+                     <h:inputText value="#{customerBean.internalTranferLog.internalTranferNote}" style="float: right"/>
+                     <h:outputLabel value="Phí"/>
+                     <h:selectOneMenu value="#{customerBean.phiType}" >
+                         <f:selectItem itemLabel="Người chuyển trả" itemValue="1"/>
+                         <f:selectItem itemLabel="Người nhận trả" itemValue="2"/>
+                    </h:selectOneMenu>
+                    </h:panelGrid>
+                      <div class="validationDiv">
+                          <h:outputText value="#{customerBean.mssg}" style="color: #DA7B77;font-size: 120%;"/>
+              </div>
+                    <h:commandButton value="Xác nhận"  action="#{customerBean.checkTranfer()}" style="border: 1px solid #C04040; background-color: #C04040;margin-left: 1em;height: 30px;color: #f0f0f0;margin-left: 220px;width: 120px;margin-top: 65px"> 
+</h:commandButton>
+            </h:form>
+                    </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

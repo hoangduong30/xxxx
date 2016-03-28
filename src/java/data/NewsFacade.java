@@ -5,7 +5,7 @@
  */
 package data;
 
-import entity.TranferLog;
+import entity.News;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author MyPC
  */
 @Stateless
-public class TranferLogFacade extends AbstractFacade<TranferLog> {
+public class NewsFacade extends AbstractFacade<News> {
 
     @PersistenceContext(unitName = "Project2_hoangPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class TranferLogFacade extends AbstractFacade<TranferLog> {
         return em;
     }
 
-    public TranferLogFacade() {
-        super(TranferLog.class);
+    public NewsFacade() {
+        super(News.class);
     }
     
 }

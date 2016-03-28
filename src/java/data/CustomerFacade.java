@@ -7,6 +7,7 @@ package data;
 
 import entity.Customer;
 import java.math.BigInteger;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -78,5 +79,14 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     }
      public Customer findbyCustomerEmail(String customerEmail) {
         return (Customer) em.createNamedQuery("Customer.findByCustomerEmail").setParameter("customerEmail", customerEmail).getSingleResult();
+    }
+   public List<Customer> getCustomerBySearch(String customerType, String searchString) {
+        return em.createQuery("SELECT c FROM Customer c WHERE c." + customerType + " like :customer").setParameter("customer", "%" + searchString + "%").getResultList();
+    }
+   public List<Customer> getCustomerBySearchID(String customerType, Integer searchString) {
+        return em.createQuery("SELECT c FROM Customer c WHERE c." + customerType + " = :customer").setParameter("customer",  searchString).getResultList();
+    }
+   public List<Customer> getCustomerBySearchBigInt(String customerType, BigInteger searchString) {
+        return em.createQuery("SELECT c FROM Customer c WHERE c." + customerType + " = :customer").setParameter("customer",  searchString).getResultList();
     }
 }

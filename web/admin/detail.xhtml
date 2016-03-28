@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+        <script>
+    $(document).ready(function () {
+        $("#reply").click(function () {
+            $("#comment").toggle(1000);
+        });
+    });
+</script>
+            <f:metadata>
+                <f:viewParam name="customerID" value="#{adminBean.customer.customerID}"/>
+                <f:viewAction action="#{adminBean.doGetDetail()}"/>
+            </f:metadata>
+        <ui:composition template="./../layout/templateForAdmin.xhtml">
+
+            <ui:define name="title">
+               Thông tin khách hàng
+            </ui:define>
+          
+            <ui:define name="content">
+                <div style="width: 100%;">
+                     <div style="width: 550px;padding-left: 120px;float: left" id="formDetail">
+                <h2 style="padding-bottom: 20px;color: #C04040;font-weight: bold;padding-left: 100px;border-bottom: 1px #C04040 double">Thông tin chi tiết khách hàng</h2>
+                <h:form>
+                    <h:panelGrid columns="2" border="1">
+                        <h:outputLabel value="mã khách hàng: " style="width: 100px;margin-bottom: 0.5em;"/>
+                        <h:outputText value="#{adminBean.customer.customerID}" style="margin: 155px;"/>
+                <h:outputLabel value="Họ và Tên: " style="margin-bottom: 0.5em;"/>
+                <h:inputText value="#{adminBean.customer.customerName}" style="float: right"/>
+                    <h:outputLabel value="Địa chỉ: " style="margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.customer.customerAddress}" style="float: right"/>
+                    <h:outputLabel value="Số Điện Thoại: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.customer.customerPhone}" style="float: right"/>
+                    <h:outputLabel value="Email: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.customer.customerEmail}" style="float: right"/>
+                    <h:outputLabel value="Số Chứng Minh Nhân Dân: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.customer.identityNumber}" style="float: right"/>
+                      <h:outputLabel value="Ngày đăng ký: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.customer.dateRegister}" style="float: right">
+                    <f:convertDateTime pattern="m/d/y"/>
+                    </h:inputText>
+                     <h:outputLabel value="Tên Đăng Nhập: " style="width: 100px;margin-bottom: 0.5em;"/>
+                     <h:inputText value="#{adminBean.customer.userName}" style="float: right"/>
+                      <h:outputLabel value="Mật Khẩu: " style="width: 100px;margin-bottom: 0.5em;"/>
+                      <h:inputText value="#{adminBean.customer.userPass}" style="float: right"/>
+                      </h:panelGrid>
+                      <div class="validationDiv">
+                    <h:outputText value="#{adminBean.mssg}" style="color: #DA7B77;font-weight: bolder;font-size: 140%;"/>
+              </div>
+<!--                <h:inputFile value="">
+                        </h:inputFile>-->
+<h:commandButton value="Cập nhật"  action="#{adminBean.updateCustomer()}" style="border: 1px solid #C04040; background-color: #C04040;margin-left: 1em;height: 30px;color: #f0f0f0;margin-left: 220px;width: 120px;margin-top: 20px"> 
+</h:commandButton>
+            </h:form>
+                </div>
+                  <div  style="width: 450px;padding-left: 120px;float: left" >
+                    <h:form rendered="#{adminBean.action eq 'updateCard'}">
+                      <h2 style="padding-bottom: 20px;color: #C04040;border-bottom: 1px #C04040 double">tài khoản của khách hàng</h2>
+                      <h:outputLabel value="Vui lòng lựa chọn tài khoản  "/>
+                    <h:selectOneMenu onchange="submit()" valueChangeListener="#{adminBean.changeValueSelect}" immediate="true" >
+                        <f:selectItems value="#{adminBean.customer.accountList}" var="account" itemValue="#{account.accountType.accountType}" itemLabel="#{account.accountType.accountType}" />			
+                    </h:selectOneMenu>
+               </h:form>
+                <h:form rendered="#{adminBean.action eq 'updateCard'}" >
+                    <h:panelGrid columns="2"  border="1" title="tài khoản">
+                <h:outputLabel value="Loại tài khoản: " style="width: 100px;margin-bottom: 0.5em;"/>
+                <h:inputText value="#{adminBean.account.accountType.accountType}" style="float: right"/>
+                     <h:outputLabel value="Số Tài khoản: " style="width: 100px;margin-bottom: 0.5em;"/>
+                     <h:inputText value="#{adminBean.account.accountID}" style="float: right"/>
+                    <h:outputLabel value="Số Dư Trong Tài khoản hiện tại: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.account.acountAmount}" style="float: right"/>
+                    
+                    <h:outputLabel value="Ngày mở: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.account.dateOpen}" style="float: right">
+                    <f:convertDateTime pattern="MM/d/y"/>
+                    </h:inputText>
+                    <h:outputLabel value="Ngày hoạt động " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.account.dateStart}" style="float: right">
+                    <f:convertDateTime pattern="MM/d/y"/>
+                    </h:inputText>
+                    <h:outputLabel value="Tình trạng hoạt động: " style="width: 100px;margin-bottom: 0.5em;"/>
+                    <h:inputText value="#{adminBean.account.isStatus}" style="float: right"/>
+                     <h:outputLabel value="Nạp Tiền"/>
+                     <h:inputText value="#{adminBean.transactionAmount}" style="float: right"/>
+                    </h:panelGrid>
+                      <div class="validationDiv">
+                    <h:outputText value="#{adminBean.mssg}" style="color: #DA7B77;font-weight: bolder;font-size: 140%;"/>
+              </div>
+                    <h:commandButton value="Cập nhật"  action="#{adminBean.updateAcc()}" style="border: 1px solid #C04040; background-color: #C04040;margin-left: 1em;height: 30px;color: #f0f0f0;margin-left: 220px;width: 120px;margin-top: 65px"> 
+</h:commandButton>
+            </h:form>
+                    </div>
+                </div>
+                <div style="clear: both;">
+                <h:form>
+                    <h:selectOneMenu onchange="submit()" valueChangeListener="#{adminBean.changeActionAcc}" immediate="true" >
+                        <f:selectItem itemValue="1" itemLabel="Chọn hoạt động" />
+                        <f:selectItem itemValue="showCard" itemLabel="Xem tài khoản" />
+                        <f:selectItem itemValue="updateCard" itemLabel="Sửa Và Xóa tài khoản" />
+                        <f:selectItem itemValue="updateCard" itemLabel="Thêm tài khoản" />
+                    </h:selectOneMenu>
+               </h:form>
+                
+                <h:form rendered="#{adminBean.action eq 'showCard'}">
+                     <h:panelGroup >
+                    <h2 style="padding-bottom: 20px;color: #C04040;font-weight: bold;padding-left: 100px;border-bottom: 1px #C04040 double">Tài khoản thẻ của khách hàng</h2>
+                    <h:dataTable value="#{adminBean.customer.accountList}" var="ac" border="1">          
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Mã Tài Khoản" />
+                                        </f:facet>
+                                        <h:outputText value="#{ac.accountID}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Loại Tài Khoản"/>
+                                        </f:facet>
+                                        <h:outputText value="#{ac.accountType.accountType}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Số Dư Tài Khoản"/>
+                                        </f:facet>
+                                        <h:outputText value="#{ac.acountAmount}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Ngày mở TK"/>
+                                        </f:facet>
+                                        <h:outputText value="#{ac.dateOpen}">
+                                         <f:convertDateTime pattern="MM/d/y"/>
+                                        </h:outputText>
+                                    </h:column>
+                                        <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Ngày bắt đầu"/>
+                                        </f:facet>
+                                    <h:inputText value="#{ac.dateStart}">
+                                 <f:convertDateTime pattern="MM/d/y"/>
+                                    </h:inputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tình trạng hoạt động"/>
+                                        </f:facet>
+                                        <h:outputText value="#{ac.isStatus==1?'Đang hoạt động':'Tạm khóa'}"/>                             
+                                    </h:column>
+                                </h:dataTable>
+                     <div class="validationDiv">
+                    <p style="color: #DA7B77;font-weight: bolder;font-size: 140%;">#{adminBean.mssg}</p>
+              </div>
+                     </h:panelGroup>
+                                </h:form>
+                 </div>     
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

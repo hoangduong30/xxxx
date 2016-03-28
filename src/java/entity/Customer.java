@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -50,6 +51,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByIsStatus", query = "SELECT c FROM Customer c WHERE c.isStatus = :isStatus")})
 public class Customer implements Serializable {
 
+    @Size(max = 20)
+    @Column(name = "customerPhone")
+    private String customerPhone;
+    @OneToMany(mappedBy = "customerID")
+    private Collection<Card> cardCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -63,8 +70,6 @@ public class Customer implements Serializable {
     @Size(max = 200)
     @Column(name = "customerAddress")
     private String customerAddress;
-    @Column(name = "customerPhone")
-    private BigInteger customerPhone;
     @Size(max = 50)
     @Column(name = "customerEmail")
     private String customerEmail;
@@ -122,13 +127,6 @@ public class Customer implements Serializable {
         this.customerAddress = customerAddress;
     }
 
-    public BigInteger getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(BigInteger customerPhone) {
-        this.customerPhone = customerPhone;
-    }
 
     public String getCustomerEmail() {
         return customerEmail;
@@ -234,6 +232,23 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "entity.Customer[ customerID=" + customerID + " ]";
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    @XmlTransient
+    public Collection<Card> getCardCollection() {
+        return cardCollection;
+    }
+
+    public void setCardCollection(Collection<Card> cardCollection) {
+        this.cardCollection = cardCollection;
     }
     
 }

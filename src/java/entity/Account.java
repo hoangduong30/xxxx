@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -41,6 +42,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByIsStatus", query = "SELECT a FROM Account a WHERE a.isStatus = :isStatus")})
 public class Account implements Serializable {
 
+    @OneToMany(mappedBy = "accountID")
+    private Collection<InternalTranferLog> internalTranferLogCollection;
+    @OneToMany(mappedBy = "internalAccountID")
+    private Collection<InternalTranferLog> internalTranferLogCollection1;
+    @OneToMany(mappedBy = "accountID")
+    private Collection<ExternalTranferLog> externalTranferLogCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -66,8 +74,6 @@ public class Account implements Serializable {
     private Customer customerID;
     @OneToMany(mappedBy = "accountID")
     private List<AccountLog> accountLogList;
-    @OneToMany(mappedBy = "accountID")
-    private List<TranferLog> tranferLogList;
 
     public Account() {
     }
@@ -140,16 +146,6 @@ public class Account implements Serializable {
     public void setAccountLogList(List<AccountLog> accountLogList) {
         this.accountLogList = accountLogList;
     }
-
-    @XmlTransient
-    public List<TranferLog> getTranferLogList() {
-        return tranferLogList;
-    }
-
-    public void setTranferLogList(List<TranferLog> tranferLogList) {
-        this.tranferLogList = tranferLogList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -173,6 +169,33 @@ public class Account implements Serializable {
     @Override
     public String toString() {
         return "entity.Account[ accountID=" + accountID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<InternalTranferLog> getInternalTranferLogCollection() {
+        return internalTranferLogCollection;
+    }
+
+    public void setInternalTranferLogCollection(Collection<InternalTranferLog> internalTranferLogCollection) {
+        this.internalTranferLogCollection = internalTranferLogCollection;
+    }
+
+    @XmlTransient
+    public Collection<InternalTranferLog> getInternalTranferLogCollection1() {
+        return internalTranferLogCollection1;
+    }
+
+    public void setInternalTranferLogCollection1(Collection<InternalTranferLog> internalTranferLogCollection1) {
+        this.internalTranferLogCollection1 = internalTranferLogCollection1;
+    }
+
+    @XmlTransient
+    public Collection<ExternalTranferLog> getExternalTranferLogCollection() {
+        return externalTranferLogCollection;
+    }
+
+    public void setExternalTranferLogCollection(Collection<ExternalTranferLog> externalTranferLogCollection) {
+        this.externalTranferLogCollection = externalTranferLogCollection;
     }
     
 }

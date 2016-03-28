@@ -37,150 +37,170 @@
                             <div id="formSearch" style="width: 780px;margin-bottom: 10px;">
                                 <h:form>
                         <div style="float: left">
-                            <h:selectOneMenu value="#{adminBean.customerType}" style="width: 140px; height: 33px; background-color: #EEEEEE;;color: #C0C0C0;outline: none;">
-                                <f:selectItem itemLabel="Mã khách hàng"  itemValue="customerID"/>
-                                <f:selectItem itemLabel="Tên khách hàng"  itemValue="customerName"/>
-                                <f:selectItem itemLabel="Tình trạng kích hoạt"  itemValue="isVerify"/>
-                                <f:selectItem itemLabel="Số điện thoại"  itemValue="customerPhone"/>
-                                <f:selectItem itemLabel="Số CMND"  itemValue="identityNumber"/>
-                                <f:selectItem itemLabel="Địa chỉ Email"  itemValue="customerEmail"/>
+                            <h:selectOneMenu value="#{adminBean.accountType}" style="width: 140px; height: 33px; background-color: #EEEEEE;;color: #C0C0C0;outline: none;">
+                                <f:selectItem itemLabel="Mã Tài khoản"  itemValue="accountID"/>
+                                <f:selectItem itemLabel="loại tài khoản"  itemValue="accountType"/>
+                                <f:selectItem itemLabel="mã khách hàng"  itemValue="customerID"/>
                                 <f:selectItem itemLabel="Tình trạng hoạt động"  itemValue="isStatus"/>
-                                <f:selectItem itemLabel="Tên đăng nhập"  itemValue="userName"/>
-                                <f:ajax listener="#{adminBean.changeValueCustomer}" render="customers customer1"/>
+                                <f:ajax listener="#{adminBean.changeValueAccType}" render="accounts accounts1"/>
                             </h:selectOneMenu>
                         </div>
                         <div>
                             <div id="nav-input" style="float: left">
                                 <h:inputText value="#{adminBean.searchString}">
-                                    <f:ajax listener="#{adminBean.doGetSearch}"  render="customers customer1"/>
+                                    <f:ajax listener="#{adminBean.doGetSearchByAcc}"  render="accounts accounts1"/>
                                 </h:inputText>
                             </div>             
                         </div>
                     </h:form>
                                 </div>
                              <div id="producttable" style="">
-                                 <h:form id="customers">
-                                     <h:dataTable id="booklist" value="#{adminBean.customers}" var="c" border="1" rendered="#{adminBean.change==1}">
+                                 <h:form id="accounts1">
+                                     <h:dataTable id="booklist" value="#{adminBean.doGetAllAccount()}" var="a" border="1" >
                                    
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Mã khách hàng" />
                                         </f:facet>
-                                        <h:outputText value="#{c.customerID}"/>
+                                        <h:outputText value="#{a.accountID}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Tên Khách Hàng"/>
                                         </f:facet>
-                                        <h:outputText value="#{c.customerName}"/>
+                                        <h:outputText value="#{a.accountType.accountType}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Số Điện Thoại"/>
                                         </f:facet>
-                                        <h:outputText value="#{c.customerPhone}"/>
+                                        <h:outputText value="#{a.acountAmount}"/>
                                     </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="kích hoạt"/>
-                                        </f:facet>
-                                            <h:commandButton value="Prosessing" action="#{adminBean.changeVerify()}" rendered="#{c.isVerify==0}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
-                                                <f:ajax execute="@this" render="@form"/>
-                                            </h:commandButton>
-                                            <h:commandButton value="Verified" action="#{adminBean.changeVerify()}" rendered="#{c.isVerify==1}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
-                                                <f:ajax execute="@this" render="@form"/>
-                                            </h:commandButton>
-                                    </h:column>
-                                       
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="trạng thái"/>
-                                        </f:facet>
-                                            <h:commandButton value="Active" action="#{adminBean.changeStatus()}" rendered="#{c.isStatus==1}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
-                                                <f:ajax execute="@this" render="@form"/>
-                                            </h:commandButton>
-                                            <h:commandButton value="Deactive" action="#{adminBean.changeStatus()}" rendered="#{c.isStatus==0}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
-                                                <f:ajax execute="@this" render="@form"/>
-                                            </h:commandButton>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Chi tiết"/>
-                                        </f:facet>
-                                        <h:link outcome="detail.xhtml?customerID=#{c.customerID}">Chi tiết</h:link>                                
-                                    </h:column>
-                                </h:dataTable>
-                                </h:form>
-                                 <h:form id="customer1">
-                                    <h:dataTable id="booklist" value="#{adminBean.doGetAllCustomer()}" var="c" border="1" rendered="#{adminBean.change==0}">
-                                   
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Mã khách hàng" />
-                                        </f:facet>
-                                        <h:outputText value="#{c.customerID}"/>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Tên Khách Hàng"/>
-                                        </f:facet>
-                                        <h:outputText value="#{c.customerName}"/>
-                                    </h:column>
-                                    <h:column>
+                                          <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Số Điện Thoại"/>
                                         </f:facet>
-                                        <h:outputText value="#{c.customerPhone}"/>
+                                              <h:outputText value="#{a.dateOpen}">
+                                                 <f:convertDateTime pattern="MM/d/y"/>
+                                              </h:outputText>
                                     </h:column>
-                                    <h:column>
+                                          <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="kích hoạt"/>
+                                            <h:outputText value="Số Điện Thoại"/>
                                         </f:facet>
-                                            <h:commandButton value="Prosessing" action="#{adminBean.changeVerify()}" rendered="#{c.isVerify==0}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
-                                                <f:ajax execute="@this" render="@form"/>
-                                            </h:commandButton>
-                                            <h:commandButton value="Verified" action="#{adminBean.changeVerify()}" rendered="#{c.isVerify==1}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
-                                                <f:ajax execute="@this" render="@form"/>
-                                            </h:commandButton>
+                                              <h:outputText value="#{a.dateStart}">
+                                                   <f:convertDateTime pattern="MM/d/y"/>
+                                              </h:outputText>
                                     </h:column>
-                                       
+                                          <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tình trạng hoạt động"/>
+                                        </f:facet>
+                                        <h:outputText value="#{a.isStatus==1?'Đang hoạt động':'Tạm khóa'}"/>                             
+                                    </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="trạng thái"/>
                                         </f:facet>
-                                            <h:commandButton value="Active" action="#{adminBean.changeStatus()}" rendered="#{c.isStatus==1}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
+                                            <h:commandButton value="Active" action="#{adminBean.changeStatus()}" rendered="#{a.isStatus==1}">
+                                                <f:param name="accountID" value="#{a.accountID}"/>
                                                 <f:ajax execute="@this" render="@form"/>
                                             </h:commandButton>
-                                            <h:commandButton value="Deactive" action="#{adminBean.changeStatus()}" rendered="#{c.isStatus==0}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
+                                            <h:commandButton value="Deactive" action="#{adminBean.changeStatus()}" rendered="#{a.isStatus==0}">
+                                                <f:param name="accountID" value="#{a.accountID}"/>
                                                 <f:ajax execute="@this" render="@form"/>
                                             </h:commandButton>
                                     </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Chi tiết"/>
-                                        </f:facet>
-                                        <h:link outcome="detail.xhtml?customerID=#{c.customerID}">Chi tiết</h:link>                                
-                                    </h:column>
-                                        <h:column>
+                                         <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Xóa"/>
                                         </f:facet>
-                                            <h:commandButton value="Xóa" action="#{adminBean.delCustomer()}">
-                                                <f:param name="customerID" value="#{c.customerID}"/>
+                                             <h:commandButton value="Xóa" action="#{adminBean.delAccount()}">
+                                                <f:param name="accountID" value="#{a.accountID}"/>
                                                 <f:ajax execute="@this" render="@form"/>
                                             </h:commandButton>
                                     </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Chi tiết"/>
+                                        </f:facet>
+                                        <h:link outcome="detail.xhtml?customerID=#{a.accountID}">Chi tiết</h:link>                                
+                                    </h:column>
                                 </h:dataTable>
                                 </h:form>
-                                 
+                                 <h:form  id="accounts">
+                                 <h:dataTable id="booklist" value="#{adminBean.accounts}" var="a" border="1" >
+  
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Mã khách hàng" />
+                                        </f:facet>
+                                        <h:outputText value="#{a.accountID}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tên Khách Hàng"/>
+                                        </f:facet>
+                                        <h:outputText value="#{a.accountType.accountType}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Số Điện Thoại"/>
+                                        </f:facet>
+                                        <h:outputText value="#{a.acountAmount}"/>
+                                    </h:column>
+                                          <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Số Điện Thoại"/>
+                                        </f:facet>
+                                              <h:outputText value="#{a.dateOpen}">
+                                                 <f:convertDateTime pattern="MM/d/y"/>
+                                              </h:outputText>
+                                    </h:column>
+                                          <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Số Điện Thoại"/>
+                                        </f:facet>
+                                              <h:outputText value="#{a.dateStart}">
+                                                   <f:convertDateTime pattern="MM/d/y"/>
+                                              </h:outputText>
+                                    </h:column>
+                                          <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tình trạng hoạt động"/>
+                                        </f:facet>
+                                        <h:outputText value="#{a.isStatus==1?'Đang hoạt động':'Tạm khóa'}"/>                             
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="trạng thái"/>
+                                        </f:facet>
+                                            <h:commandButton value="Active" action="#{adminBean.changeStatus()}" rendered="#{a.isStatus==1}">
+                                                <f:param name="accountID" value="#{a.accountID}"/>
+                                                <f:ajax execute="@this" render="@form"/>
+                                            </h:commandButton>
+                                            <h:commandButton value="Deactive" action="#{adminBean.changeStatus()}" rendered="#{a.isStatus==0}">
+                                                <f:param name="accountID" value="#{a.accountID}"/>
+                                                <f:ajax execute="@this" render="@form"/>
+                                            </h:commandButton>
+                                    </h:column>
+                                         <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Xóa"/>
+                                        </f:facet>
+                                             <h:commandButton value="Xóa" action="#{adminBean.delAccount()}">
+                                                <f:param name="accountID" value="#{a.accountID}"/>
+                                                <f:ajax execute="@this" render="@form"/>
+                                            </h:commandButton>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Chi tiết"/>
+                                        </f:facet>
+                                        <h:link outcome="detail.xhtml?customerID=#{a.accountID}">Chi tiết</h:link>                                
+                                    </h:column>
+                                </h:dataTable>
+                                </h:form>
                             </div>
                         </section>
                     </div>
